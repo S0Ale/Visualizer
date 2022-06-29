@@ -1,38 +1,42 @@
-const AUDIO_SAMPLES = 64;
-
-let audio1 = $('#audio1')[0];
-audio1.crossOrigin = 'anonymous';
-const audioCtx = new AudioContext();
+const AUDIO_SAMPLES = 256;
 
 let container = $('#container');
-
 let canvas = $('#canvas')[0];
+let fileInput = $('#audioupload');
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext('2d');
 
 let audioSrc, analyser;
 
-container.on('click', () => {
+fileInput.on('change', function(){
+  const audioCtx = new AudioContext();
+
+  const files = this.files;
+  let audio1 = $('#audio1')[0];
+  audio1.src = URL.createObjectURL(files[0]);
+  audio1.volume = .3;
+  audio1.load();
   audio1.play();
+
   audioSrc = audioCtx.createMediaElementSource(audio1);
   analyser = audioCtx.createAnalyser();
+  audioSrc.connect(analyser);
   analyser.connect(audioCtx.destination);
-  //audioSrc.connect(audioCtx.destination);
   analyser.fftSize = AUDIO_SAMPLES;
   let bufferLength = analyser.frequencyBinCount;
   let data = new Uint8Array(bufferLength);
 
   const barWidth = canvas.width/bufferLength;
   let barHeight, x;
-
   function animate(){
     x = 0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     analyser.getByteFrequencyData(data);
 
     for(let i = 0; i < bufferLength; i++){
-      barHeight = data[i];
+      barHeight = data[i] * 2;
       ctx.fillStyle = 'white';
       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
       x += barWidth;
@@ -40,5 +44,6 @@ container.on('click', () => {
 
     requestAnimationFrame(animate);
   }
+
   animate();
 });
