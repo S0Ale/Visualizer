@@ -1,6 +1,7 @@
 const AUDIO_SAMPLES = 64;
 
 let audio1 = $('#audio1')[0];
+audio1.crossOrigin = 'anonymous';
 const audioCtx = new AudioContext();
 
 let container = $('#container');
@@ -17,6 +18,7 @@ container.on('click', () => {
   audioSrc = audioCtx.createMediaElementSource(audio1);
   analyser = audioCtx.createAnalyser();
   analyser.connect(audioCtx.destination);
+  //audioSrc.connect(audioCtx.destination);
   analyser.fftSize = AUDIO_SAMPLES;
   let bufferLength = analyser.frequencyBinCount;
   let data = new Uint8Array(bufferLength);
