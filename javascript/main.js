@@ -1,3 +1,5 @@
+import Visualiser from './Visualiser.js'
+
 const AUDIO_SAMPLES = 256;
 
 let container = $('#container');
@@ -6,13 +8,26 @@ let fileInput = $('#audioupload');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const ctx = canvas.getContext('2d');
 
-let audioSrc, analyser;
+let visual = new Visualiser(canvas, AUDIO_SAMPLES);
 
 fileInput.on('change', function(){
-  const audioCtx = new AudioContext();
+  //const audioCtx = new AudioContext();
+  if(visual.isRendering){
+    visual.stop();
+    visual.currentAudio.pause();
+  }
+  const files = this.files;
+  visual.loadAudio(URL.createObjectURL(files[0]));
+  visual.audioVolume = .3;
+  visual.prepareAudio();
+  visual.currentAudio.play();
+  visual.start();
 
+  //URL.createObjectURL(files[0])
+
+
+  /*
   const files = this.files;
   let audio1 = $('#audio1')[0];
   audio1.src = URL.createObjectURL(files[0]);
@@ -46,4 +61,5 @@ fileInput.on('change', function(){
   }
 
   animate();
+  */
 });
