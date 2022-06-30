@@ -8,26 +8,18 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let visual = new Visualiser(canvas, AUDIO_SAMPLES, 0, 50);
+let player = new AudioPlayer('#song');
+
+player.onPlayEvent(() => {
+  visual.prepareAudio(player.getAudio());
+  visual.start();
+});
+player.onPauseEvent(() => {
+  visual.stop();
+});
+player.setVolume(.3);
 
 fileInput.on('change', function(){
   const files = this.files;
-
-  playAudio(URL.createObjectURL(files[0]));
+  player.loadAudio(URL.createObjectURL(files[0]));
 });
-
-function playAudio(source){
-  if(visual.isRendering()){
-    visual.stop();
-    visual.getAudio().pause(); // lo deve gestire il player
-  }
-
-  // lo deve gestire il player
-  let audio = document.querySelector('#song');
-  audio.src = source;
-  audio.volume = .3;
-  audio.load();
-
-  visual.prepareAudio(audio);
-  audio.play(); // lo deve gestire il player
-  visual.start();
-}
