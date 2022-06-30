@@ -13,10 +13,23 @@
   <body>
     <div id="container">
       <canvas id="canvas"></canvas>
-      <audio id="audio1" controls></audio>
+      <audio id="song"></audio>
       <input type="file" id="audioupload" accept="audio/*">
+
+      <div id="audio-player">
+        <div id="controls">
+          <i id="play" class="fa fa-pause"></i>
+          <span id="start-time" class="time">00:00</span>
+          <div id="progressbar"></div>
+          <span id="time" class="time">00:00</span>
+          <i id="mute" class="fa fa-volume-up"></i>
+          <div id="volume"></div>
+        </div>
+      </div>
+
     </div>
 
+    <script src="https://kit.fontawesome.com/6de3b8484d.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <script type="module" src="javascript/main.js"></script>

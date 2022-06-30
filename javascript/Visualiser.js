@@ -5,7 +5,6 @@ export default class Visualizer{
   constructor(canvas, samples, xStart, yOffset){
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
-    this.audio = document.querySelector('#audio1');
     this.bars = new Array();
 
     this.x = xStart;
@@ -23,16 +22,10 @@ export default class Visualizer{
 
   // Methods
 
-  // Load new audio source
-  loadAudio(resource){
-    this.audio.src = resource;
-    this.audio.load();
-  }
-
   // Analyser setup
-  prepareAudio(){
+  prepareAudio(audio){
     this.audioContext = new AudioContext();
-    let audioSrc = this.audioContext.createMediaElementSource(this.audio);
+    let audioSrc = this.audioContext.createMediaElementSource(audio);
 
     this.analyser = this.audioContext.createAnalyser();
     this.analyser.fftSize = this.samples;
@@ -86,10 +79,7 @@ export default class Visualizer{
   }
 
   //--------------
-
-  setAudioVolume(v){
-    this.audio.volume = v;
-  }
+  
   setSamples(s){
     this.samples = s;
   }
