@@ -36,7 +36,9 @@ export default class AudioPlayer{
     this.volumeBar.progressbar({value : this.player.volume * 100});
     this.volumeBar.click((e) => {
       let info = getProgressBarClickInfo(this.volumeBar, e);
+      console.log(info.value);
       this.volumeBar.progressbar('value', info.value);
+      console.table(info.value , info.max);
       this.setVolume(info.value / info.max);
     });
     this.bar.progressbar({value : this.currentTime});
@@ -60,9 +62,9 @@ export default class AudioPlayer{
         this.player.volume = 0;
       }
 
-      this.volumeBar.progressbar('value', this.player.volume = 100);
-      this.muteBtn.toggleClass('fa-volume-up', this.player.volume != 0);
-      this.muteBtn.toggleClass('fa-volume-off', this.player.volume == 0);
+      this.volumeBar.progressbar('value', this.player.volume * 100);
+      $('#mute>i').toggleClass('fa-volume-up', this.player.volume != 0);
+      $('#mute>i').toggleClass('fa-volume-off', this.player.volume == 0);
     });
   }
 
@@ -100,7 +102,6 @@ export default class AudioPlayer{
   //-----------
   setVolume(v){
     this.player.volume = v;
-    this.volumeBar.progressbar({value : this.player.volume * 100});
   }
   onPlayEvent(f){
     this.onPlay = f;

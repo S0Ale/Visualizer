@@ -11,19 +11,30 @@
 
   </head>
   <body>
-    <div id="container">
+    <div class="container">
       <canvas id="canvas"></canvas>
       <audio id="song"></audio>
       <input type="file" id="audioupload" accept="audio/*">
 
-      <div id="audio-player">
-        <div id="controls">
-          <i id="play" class="fa fa-pause"></i>
-          <span id="start-time" class="time">00:00</span>
-          <div id="progressbar"></div>
-          <span id="time" class="time">00:00</span>
-          <i id="mute" class="fa fa-volume-up"></i>
-          <div id="volume"></div>
+      <div class="playerSection">
+        <div class="playerCont">
+          <div class="songImage"></div>
+          <div class="songInfo"></div>
+
+          <div id="audio-player">
+            <div id="controls">
+              <div class="progress">
+                <button id="play" type="button" name="button"><i class="fa fa-play"></i></button>
+                <span id="start-time" class="time">00:00</span>
+                <div id="progressbar" class="ui-progressbar"></div>
+                <span id="time" class="time">00:00</span>
+              </div>
+              <div class="volume">
+                <button id="mute" type="button" name="button"><i class="fa fa-volume-up"></i></button>
+                <div id="volume"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -31,6 +42,7 @@
 
     <script src="https://kit.fontawesome.com/6de3b8484d.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" crossorigin="anonymous"></script>
 
     <script type="module" src="javascript/main.js"></script>
   </body>
