@@ -1,8 +1,11 @@
 // Visualiser class
 export default class Visualizer{
-  constructor(canvas, samples){
+  constructor(canvas, samples, xStart, yOffset){
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
+
+    this.x = xStart;
+    this.offset = yOffset;
 
     this.samples = samples;
     this.bufferSize = 0;
@@ -10,6 +13,7 @@ export default class Visualizer{
     this.barWidth = 0;
 
     this.endRender = true;
+    this.animation = null;
   }
 
   // Methods
@@ -25,6 +29,7 @@ export default class Visualizer{
 
     this.analyser = this.audioContext.createAnalyser();
     this.analyser.fftSize = this.samples;
+    this.analyser.smoothingTimeConstant = .9;
     audioSrc.connect(this.analyser);
     this.analyser.connect(this.audioContext.destination);
 
@@ -39,25 +44,25 @@ export default class Visualizer{
     let barHeight, x, thisClass = this;
 
     function render(){
-      console.log(thisClass.barWidth);
-      x = 0;
+      x = thisClass.x;
       thisClass.context.clearRect(0, 0, thisClass.canvas.width, thisClass.canvas.height);
       thisClass.analyser.getByteFrequencyData(thisClass.data);
 
       for(let i = 0; i < thisClass.bufferSize; i++){
         barHeight = thisClass.data[i] * 2;
         thisClass.context.fillStyle = 'white';
-        thisClass.context.fillRect(x, thisClass.canvas.height - barHeight, thisClass.barWidth, barHeight);
+        thisClass.context.fillRect(x, thisClass.canvas.height - barHeight - thisClass.offset, thisClass.barWidth, barHeight);
         x += thisClass.barWidth;
       }
 
-      if(!thisClass.endRender) requestAnimationFrame(render);
+      if(!thisClass.endRender) thisClass.animation = requestAnimationFrame(render);
     };
     render();
   }
 
   stop(){
     this.endRender = true;
+    window.cancelAnimationFrame(this.animation);
   }
 
   // Getters and Setters

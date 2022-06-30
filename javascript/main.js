@@ -9,7 +9,7 @@ let fileInput = $('#audioupload');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let visual = new Visualiser(canvas, AUDIO_SAMPLES);
+let visual = new Visualiser(canvas, AUDIO_SAMPLES, 50, 50);
 
 fileInput.on('change', function(){
   if(visual.isRendering){
