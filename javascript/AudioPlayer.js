@@ -36,9 +36,7 @@ export default class AudioPlayer{
     this.volumeBar.progressbar({value : this.player.volume * 100});
     this.volumeBar.click((e) => {
       let info = getProgressBarClickInfo(this.volumeBar, e);
-      console.log(info.value);
       this.volumeBar.progressbar('value', info.value);
-      console.table(info.value , info.max);
       this.setVolume(info.value / info.max);
     });
     this.bar.progressbar({value : this.currentTime});
@@ -51,8 +49,8 @@ export default class AudioPlayer{
     this.playBtn.click(() => {
       if(!this.player) return;
       this.playing ? this.pause() : this.play();
-      $('#play>i').toggleClass('fa-play', !this.player.paused);
-      $('#play>i').toggleClass('fa-pause', this.player.paused);
+      $('#play>i').toggleClass('fa-play', this.player.paused);
+      $('#play>i').toggleClass('fa-pause', !this.player.paused);
     });
 
     this.muteBtn.click(() => {
@@ -112,16 +110,17 @@ export default class AudioPlayer{
 }
 
 function getTime(t){
-    let m=~~(t/60), s=~~(t % 60);
-    return (m<10?"0"+m:m)+':'+(s<10?"0"+s:s);
+  let m=~~(t/60), s=~~(t % 60);
+  return (m<10?"0"+m:m)+':'+(s<10?"0"+s:s);
 }
 
 function getProgressBarClickInfo(progress_bar, e) {
-    var offset = progress_bar.position();
-    var x = e.pageX - offset.left; // or e.offsetX (less support, though)
-    var y = e.pageY - offset.top;  // or e.offsetY
-    var max = progress_bar.progressbar("option", "max");
-    var value = x * max / progress_bar.width();
+  let playerOffset = $('.playerCont').position();
+  let offset = progress_bar.position();
+  let x = e.pageX - offset.left - playerOffset.left; // or e.offsetX (less support, though)
+  let y = e.pageY - offset.top - playerOffset.top;  // or e.offsetY
+  let max = progress_bar.progressbar("option", "max");
+  let value = x * max / progress_bar.width();
 
-    return { x: x, y: y, max: max, value: value };
+  return { x: x, y: y, max: max, value: value };
 }

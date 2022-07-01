@@ -19,7 +19,7 @@ export default class Bar{
     ctx.strokeStyle = this.color;
     ctx.beginPath();
     ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x, this.y - this.height);
+    if(this.height > 0) ctx.lineTo(this.x, this.y - this.height);
     ctx.closePath();
     ctx.stroke();
   }

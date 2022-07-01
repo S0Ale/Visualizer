@@ -1,13 +1,13 @@
 import Visualiser from './Visualiser.js'
 import AudioPlayer from './AudioPlayer.js'
 
-const AUDIO_SAMPLES = 256;
+const AUDIO_SAMPLES = 512;
 const fileInput = $('#audioupload');
 const canvas = $('#canvas')[0];
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let visual = new Visualiser(canvas, AUDIO_SAMPLES, 0, 50);
+let visual = new Visualiser(canvas, AUDIO_SAMPLES, 0, 5, '#ed913b');
 let player = new AudioPlayer('#song');
 
 player.onPlayEvent(() => {

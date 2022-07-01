@@ -2,9 +2,10 @@ import Bar from './Bar.js'
 
 // Visualiser class
 export default class Visualizer{
-  constructor(canvas, samples, xStart, yOffset){
+  constructor(canvas, samples, xStart, yOffset, barColor){
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
+    this.barColor = barColor;
     this.bars = new Array();
 
     this.x = xStart;
@@ -39,10 +40,10 @@ export default class Visualizer{
     this.barWidth = this.width/this.bufferSize;
 
     // Bars setup
-    let x = this.x, offset = this.canvas.height - this.offset, line = this.barWidth * .5;
+    let x = this.x, offset = this.canvas.height - this.offset, line = this.barWidth * .7;
     for(let i = 0; i < this.bufferSize; i++){
       this.bars.push(new Bar(x + this.barWidth/2, offset, this.barWidth, line));
-      this.bars[i].setColor('white');
+      this.bars[i].setColor(this.barColor);
       x += this.barWidth;
     }
   }
@@ -79,7 +80,7 @@ export default class Visualizer{
   }
 
   //--------------
-  
+
   setSamples(s){
     this.samples = s;
   }
