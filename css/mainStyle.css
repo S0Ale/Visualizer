@@ -1,34 +1,68 @@
 @import url('vars.css');
 
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+.layer0{z-index: 0}
+.layer1{z-index: 10}
+.layer2{z-index: 20}
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.container{
+.navbar{
+  height: 50px;
+  background: var(--boxBgnd);
+}
+
+.mainSection{
+  position: relative;
+  height: 880px;
+}
+
+.mainSection::before{
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 1000px;
-  background: #252525;
+  height: 100%;
+  background: var(--bgnd);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .playerSection{
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 80%;
-  border: 1px solid blue;
+  height: 100%;
 }
 
 .playerCont{
+  background: var(--boxBgnd);
   margin-top: 100px;
   display: grid;
-  grid-template-rows: 85% 15%;
+  grid-template-rows: 88% 12%;
   grid-template-columns: 30% 70%;
   position: absolute;
-  width: 700px;
+  width: 800px;
   height: 500px;
-  border: 1px solid blue;
+  border-radius: 3px;
 }
 
 #canvas{
@@ -37,6 +71,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 4;
 }
 
 #audioupload{
@@ -64,6 +99,7 @@
   -moz-user-select: none;
   -khtml-user-select: none;
   -ms-user-select: none;
+  border: 1px solid red;
 }
 
 #controls{
@@ -105,11 +141,12 @@
 }
 
 .volume{
+  justify-content: center;
   width: 30%;
 }
 
 #progressbar, #volume{
-  height: 10px;
+  height: 5px;
   display: inline-block;
 }
 
@@ -128,4 +165,10 @@
 
 #volume{
   width: 5vw;
+}
+
+footer{
+  border-top: 5px solid var(--visualColor);
+  height: 100px;
+  background: var(--boxBgnd);
 }

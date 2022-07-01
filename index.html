@@ -11,13 +11,16 @@
 
   </head>
   <body>
-    <div class="container">
+    <nav class="col-12 navbar layer1"></nav>
+    <section class="col-12 mainSection layer1">
+
       <canvas id="canvas"></canvas>
       <audio id="song"></audio>
       <input type="file" id="audioupload" accept="audio/*">
 
       <div class="playerSection">
-        <div class="playerCont">
+        <div class="playerCont layer2">
+
           <div class="songImage"></div>
           <div class="songInfo"></div>
 
@@ -31,14 +34,17 @@
               </div>
               <div class="volume">
                 <button id="mute" type="button" name="button"><i class="fa fa-volume-up"></i></button>
-                <div id="volume"></div>
+                <div id="volume" class="ui-progressbar"></div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-    </div>
+    </section>
+
+    <footer class="fluid layer1"></footer>
 
     <script src="https://kit.fontawesome.com/6de3b8484d.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
