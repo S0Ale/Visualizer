@@ -7,7 +7,7 @@ const canvas = $('#canvas')[0];
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let visual = new Visualiser(canvas, AUDIO_SAMPLES, 0, 5, '#ed913b');
+let visual = new Visualiser(canvas, AUDIO_SAMPLES, 0, 5, '#7b35c9');
 let player = new AudioPlayer('#song');
 
 player.onPlayEvent(() => {

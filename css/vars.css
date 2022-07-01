@@ -5,6 +5,8 @@
 
   --boxBgnd: #252525;;
   --bgnd: url('../res/background.jpg');
+  --mainColor: #7b35c9;
+  --sndColor: #fcb02f;
 
-  --visualColor: #7b35c9;
+  --layerColor: rgba(240, 240, 240, 0.5);
 }
