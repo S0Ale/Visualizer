@@ -3,7 +3,8 @@ let lowVolume = .75;
 // Audio player class
 export default class AudioPlayer{
   constructor(playerSelector){
-    this.player = $(playerSelector)[0];
+    //this.player = $(playerSelector)[0];
+    this.player = new Audio();
 
     this.container = $('#audio-player');
     this.playBtn = $('#play');
@@ -19,27 +20,24 @@ export default class AudioPlayer{
     this.duration = 0;
 
     this.playing = false;
+
+    this.initUI();
   }
 
   // Init
   initUI(){
-    this.player.onloadedmetadata = () => {
-      this.duration = this.player.duration;
-      this.bar.progressbar('option', {'max' : this.duration});
-    };
+    this.setUI(0, 0);
 
-    this.player.addEventListener('timeupdate', () => {
+    this.tUpdate = () => {
       this.bar.progressbar('value', this.player.currentTime);
       this.time.text(getTime(this.player.currentTime));
-    }, false);
+    }
 
-    this.volumeBar.progressbar({value : this.player.volume * 100});
     this.volumeBar.click((e) => {
       let info = getProgressBarClickInfo(this.volumeBar, e);
       this.volumeBar.progressbar('value', info.value);
       this.setVolume(info.value / info.max);
     });
-    this.bar.progressbar({value : this.currentTime});
 
     this.bar.click((e) => {
       let info = getProgressBarClickInfo(this.bar, e);
@@ -67,26 +65,43 @@ export default class AudioPlayer{
     });
   }
 
+  setUI(volume, time){
+    this.volumeBar.progressbar({value : volume * 100});
+    this.bar.progressbar({value : time});
+  }
+
   // Methods
+
+  // Load new audio source
   loadAudio(source){
-    this.player.src = source;
+    if(this.player) this.player.removeEventListener('timeupdate', this.tUpdate);
+    this.player = new Audio(source);
     this.player.load();
-    this.initUI();
+
+    this.player.volume = this.volume;
+    this.setUI(this.volume, 0);
+
+    this.player.onloadedmetadata = () => {
+      this.duration = this.player.duration;
+      this.bar.progressbar('option', {'max' : this.duration});
+    };
+
+    this.player.addEventListener('timeupdate', this.tUpdate, false);
   }
 
   play(){
     if(this.player && !this.playing){
-      if(this.onPlay) this.onPlay();
       this.playing = true;
       this.player.play();
+      if(this.onPlay) this.onPlay();
     }
   }
 
   pause(){
     if(this.playing){
-      if(this.onPause) this.onPause();
       this.playing = false;
       this.player.pause();
+      if(this.onPause) this.onPause();
     }
   }
 
@@ -97,10 +112,14 @@ export default class AudioPlayer{
   getAudio(){
     return this.player;
   }
+  isPlaying(){
+    return this.playing;
+  }
 
   //-----------
   setVolume(v){
-    this.player.volume = v;
+    if(this.player) this.player.volume = v;
+    this.volume = v;
   }
   onPlayEvent(f){
     this.onPlay = f;

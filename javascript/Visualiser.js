@@ -12,6 +12,7 @@ export default class Visualizer{
     this.offset = yOffset;
     this.width = this.canvas.width - this.x;
 
+    this.audioContext = null;
     this.samples = samples;
     this.bufferSize = 0;
     this.data = null;
@@ -25,12 +26,13 @@ export default class Visualizer{
 
   // Analyser setup
   prepareAudio(audio){
+    if(this.audioContext) this.audioContext.close();
     this.audioContext = new AudioContext();
     let audioSrc = this.audioContext.createMediaElementSource(audio);
 
     this.analyser = this.audioContext.createAnalyser();
     this.analyser.fftSize = this.samples;
-    this.analyser.smoothingTimeConstant = .7;
+    this.analyser.smoothingTimeConstant = .9;
     audioSrc.connect(this.analyser);
     audioSrc.connect(this.audioContext.destination);
 
@@ -40,9 +42,10 @@ export default class Visualizer{
     this.barWidth = this.width/this.bufferSize;
 
     // Bars setup
-    let x = this.x, offset = this.canvas.height - this.offset, line = this.barWidth * .7;
+    let x = this.x, offset = this.canvas.height - this.offset;
     for(let i = 0; i < this.bufferSize; i++){
-      this.bars.push(new Bar(x + this.barWidth/2, offset, this.barWidth, line));
+      this.bars.push(new Bar(i*4, offset, this.barWidth * .5));
+      //this.bars.push(new Bar(x + i*4 + 1, offset, 2)); TEST
       this.bars[i].setColor(this.barColor);
       x += this.barWidth;
     }

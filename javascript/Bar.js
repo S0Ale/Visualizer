@@ -1,12 +1,10 @@
 // Bar class
 export default class Bar{
-  constructor(x, y, width, strokeWidth){
+  constructor(x, y, width){
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = 0;
-
-    this.stroke = strokeWidth;
     this.color = 'white';
   }
 
@@ -15,16 +13,15 @@ export default class Bar{
   }
 
   render(ctx){
-    ctx.lineWidth = this.stroke;
+    ctx.lineWidth = this.width;
     ctx.strokeStyle = this.color;
     ctx.fillStyle = '#ff8e32';
-    ctx.beginPath();
 
+    ctx.beginPath();
     ctx.moveTo(this.x, this.y);
     if(this.height > 0) ctx.lineTo(this.x, this.y - this.height);
-    ctx.fillRect(this.x - this.stroke/2, this.y - this.height - 10, this.stroke, 4);
-
     ctx.closePath();
+
     ctx.stroke();
   }
 
