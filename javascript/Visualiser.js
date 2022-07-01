@@ -30,9 +30,9 @@ export default class Visualizer{
 
     this.analyser = this.audioContext.createAnalyser();
     this.analyser.fftSize = this.samples;
-    this.analyser.smoothingTimeConstant = .9;
+    this.analyser.smoothingTimeConstant = .7;
     audioSrc.connect(this.analyser);
-    this.analyser.connect(this.audioContext.destination);
+    audioSrc.connect(this.audioContext.destination);
 
     this.bufferSize = this.analyser.frequencyBinCount;
     this.data = new Uint8Array(this.bufferSize);

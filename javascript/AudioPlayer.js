@@ -44,6 +44,7 @@ export default class AudioPlayer{
     this.bar.click((e) => {
       let info = getProgressBarClickInfo(this.bar, e);
       this.player.currentTime = this.player.duration / info.max * info.value;
+      this.bar.progressbar({value : this.currentTime});
     });
 
     this.playBtn.click(() => {
