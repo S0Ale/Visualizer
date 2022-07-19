@@ -32,7 +32,7 @@ export default class Visualizer{
 
     this.analyser = this.audioContext.createAnalyser();
     this.analyser.fftSize = this.samples;
-    this.analyser.smoothingTimeConstant = .9;
+    this.analyser.smoothingTimeConstant = .85;
     audioSrc.connect(this.analyser);
     audioSrc.connect(this.audioContext.destination);
 
