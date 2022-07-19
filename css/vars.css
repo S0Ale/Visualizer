@@ -3,7 +3,8 @@
   --barColor: white;
   --barBgnd: rgba(110, 109, 109, 0.7);
 
-  --boxBgnd: #252525;;
+  --boxBgnd: #252525;
+  --boxShadow: rgba(60, 60, 60, 0.8);
   --bgnd: url('../res/background.jpg');
   --mainColor: #7b35c9;
   --sndColor: #fcb02f;

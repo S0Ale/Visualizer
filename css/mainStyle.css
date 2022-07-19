@@ -32,6 +32,7 @@
 .mainSection{
   position: relative;
   height: 880px;
+  overflow: hidden;
 }
 
 .mainSection::before{
@@ -45,6 +46,7 @@
   background: var(--bgnd);
   background-attachment: fixed;
   background-repeat: no-repeat;
+  filter: blur(10px);
 }
 
 .colorLayer{
@@ -72,6 +74,7 @@
   width: 800px;
   height: 500px;
   border-radius: 3px;
+  box-shadow: 3px 3px 0px var(--boxShadow);
 }
 
 #canvas{
